@@ -7,9 +7,9 @@ $existing=@(az pipelines list --org $Organization --project $Project -o json | C
 foreach ($entry in @(@{name='AgroConecta-CI';file='azure-pipeline.yml'},@{name='AgroConecta-Release';file='azure-release.yml'})) {
     $p=$existing | Where-Object name -eq $entry.name | Select-Object -First 1
     if ($p) {
-        az pipelines update --id $p.id --org $Organization --project $Project --branch main --yml-path $entry.file --output none
+        az pipelines update --id $p.id --org $Organization --project $Project --branch refs/heads/main --yml-path $entry.file --output none
     } else {
-        az pipelines create --org $Organization --project $Project --name $entry.name --repository $RepositoryId --repository-type tfsgit --branch main --yml-path $entry.file --skip-first-run true --output none
+        az pipelines create --org $Organization --project $Project --name $entry.name --repository $RepositoryId --repository-type tfsgit --branch refs/heads/main --yml-path $entry.file --skip-first-run true --output none
     }
 }
 Write-Host 'Pipelines cadastradas/atualizadas sem execução manual de demonstração. Configure conexão, Library e Environment antes da primeira PR.'
