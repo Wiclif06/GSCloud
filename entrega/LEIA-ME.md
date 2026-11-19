@@ -1,16 +1,13 @@
-# PDF para o portal
+# PDF para o Portal do Aluno
 
-O documento reúne a identificação do grupo, os integrantes e a arquitetura. Os campos da organização Azure DevOps e do vídeo no YouTube são preenchíveis e devem receber os links da implantação.
+AgroConecta_rm563901.pdf contém o grupo, os quatro integrantes e a arquitetura. A organização https://dev.azure.com/RM563254/ já está preenchida e possui link clicável. Apenas o campo do vídeo está vazio, para receber o endereço real depois da gravação e publicação no YouTube.
 
-Para gerar o documento definitivo, instale Python 3 e execute na raiz do pacote:
+Para gerar a versão definitiva com os dois links, execute na raiz do projeto:
 
 ```powershell
 python -m pip install reportlab
-$org = Read-Host 'URL real da organização Azure DevOps'
-$video = Read-Host 'URL real do vídeo no YouTube'
-python entrega/gerar-entrega.py --org $org --video $video
+$video = Read-Host 'Link real do vídeo de Cloud no YouTube'
+python entrega/gerar-entrega.py --org https://dev.azure.com/RM563254/ --video $video
 ```
 
-O arquivo AgroConecta_rm563901.pdf será gerado nesta pasta, com os integrantes e links clicáveis. O script verifica o formato das URLs; confira manualmente a abertura, a disponibilidade do vídeo e as permissões do professor. Não envie o modelo com campos vazios.
-
-Alternativa: preencha os dois campos do modelo em um leitor de PDF que salve formulários. Reabra o arquivo salvo para conferir o conteúdo. A versão gerada pelo script é preferível porque inclui os links clicáveis.
+Alternativamente, preencha o campo do vídeo em um leitor que salve formulários e reabra o PDF para conferir. O vídeo precisa ser acessível ao professor. Não envie o PDF com esse campo vazio. A atividade de Cloud solicita o PDF, com nome do grupo e RM do representante; o ZIP é material de trabalho.

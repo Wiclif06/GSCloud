@@ -10,6 +10,20 @@ DevOps Tools & Cloud Computing
 | Lucas Gonçalves Viana | 563254 |
 | Vinicius Paschoeto da Silva | 563089 |
 
+## Ambiente publicado
+
+| Recurso | Endereço |
+|---|---|
+| Organização Azure DevOps | https://dev.azure.com/RM563254/ |
+| Projeto privado | https://dev.azure.com/RM563254/AgroConecta-GS-2026 |
+| API no Azure | https://app-agro563901gs.azurewebsites.net |
+| Swagger | https://app-agro563901gs.azurewebsites.net/swagger-ui/index.html |
+| Health | https://app-agro563901gs.azurewebsites.net/actuator/health |
+| Versão e commit | https://app-agro563901gs.azurewebsites.net/version |
+| Pipelines | https://dev.azure.com/RM563254/AgroConecta-GS-2026/_build |
+
+[Verificação do ambiente](VALIDACAO.md) · [Sequência da gravação](docs/GRAVACAO-AZURE.md)
+
 ## Visão geral
 
 O AgroConecta reúne informações de propriedades rurais, áreas de cultivo, sensores e atividades agrícolas. O sistema oferece acompanhamento hídrico, processamento assíncrono, alertas e orientação agronômica com Gemini e recuperação de fontes por PGvector.
