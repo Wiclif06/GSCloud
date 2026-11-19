@@ -22,7 +22,7 @@ DevOps Tools & Cloud Computing
 | Versão e commit | https://app-agro563901gs.azurewebsites.net/version |
 | Pipelines | https://dev.azure.com/RM563254/AgroConecta-GS-2026/_build |
 
-[Verificação do ambiente](VALIDACAO.md) · [Sequência da gravação](docs/GRAVACAO-AZURE.md)
+[Verificação do ambiente](VALIDACAO.md)
 
 ## Visão geral
 
@@ -162,8 +162,6 @@ A orientação Gemini é habilitada com `GOOGLE_API_KEY` e `APP_AI_ENABLED=true`
 
 - [Configuração Azure](docs/AZURE.md)
 - [Arquitetura](docs/ARQUITETURA-CLOUD.md)
-- [Matriz de requisitos](docs/REQUISITOS-CLOUD.md)
-- [Roteiro do vídeo](docs/ROTEIRO-VIDEO-CLOUD.md)
 - [Fluxos funcionais](docs/DEMONSTRACAO-FUNCIONAL.md)
 - [PDF de entrega](entrega/LEIA-ME.md)
 - [Base do código](docs/ORIGEM.md)

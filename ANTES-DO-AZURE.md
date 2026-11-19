@@ -49,6 +49,6 @@ Configure sc-agroconecta-azure, Variable Group/Environment agroconecta-prod e as
 
 ## 4. Gravação e documento final
 
-Siga docs/ROTEIRO-VIDEO-CLOUD.md, mostrando as etapas reais sem cortes. Os links da organização e do vídeo serão preenchidos depois da publicação. Use entrega/gerar-entrega.py para montar o PDF final; não envie o modelo com os campos vazios.
+Apresente as etapas reais de desenvolvimento, integração, publicação e CRUD com SELECT no banco em nuvem, em gravação contínua. Os links da organização e do vídeo serão preenchidos depois da publicação. Use entrega/gerar-entrega.py para montar o PDF final; não envie o modelo com os campos vazios.
 
 O script de teste de restauração utiliza volume Docker local. A montagem da share no ACI, o acesso à conta e a recuperação em Azure precisam ser conferidos no ensaio real. O backup continua sendo por snapshots; ele não se transforma em armazenamento transacional síncrono ou garantia de perda zero.
