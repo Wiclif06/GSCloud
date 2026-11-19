@@ -1,32 +1,45 @@
-# Relatório de verificação
+# Verificação do ambiente Cloud
 
-Data: 17/11/2026. Base do código: `5930f02f21d367bb3ea4b19d16d74d7719b7fbe8`.
+Conferência realizada em 19/11/2026 no projeto AgroConecta-GS-2026. A compilação implantada na conferência corresponde ao commit `9d7418d5536db4a213cb18cbea3e99387ae5ee75`.
 
-| Verificação | Resultado | Escopo |
+| Verificação | Resultado | Evidência |
 |---|---|---|
-| Compilação Java 21 e JAR | Aprovada | Aplicação e fontes de testes |
-| Testes independentes de Docker | 46 aprovados | 11 classes; 0 falhas, 0 erros e 0 ignorados |
-| Sintaxe PowerShell e shell | Aprovada | Scripts do pacote |
-| YAML, JSON e caminhos | Aprovada | Arquivos de pipeline, configuração e exemplos |
-| Políticas em simulação de CLI | Aprovada | Três políticas, repetição sem duplicatas e autoaprovação |
-| Documento PDF | Conferido | Layout, integrantes e campos de formulário |
-| Integração e restauração Docker | Não executadas | Docker indisponível no ambiente de verificação |
-| Implantação e validação Azure | Não executadas | Dependem da assinatura e organização da equipe |
+| Compilação Java 21 e JAR | Aprovada | CI-20261119.2, execução 2 |
+| Suíte Maven com Testcontainers | 183 testes, 182 aprovados, 1 ignorado, zero falhas e erros | O teste ignorado é GeminiManualTests, que depende de chamada manual ao provedor |
+| Perfil prod e migrações | Aprovados | Etapa de validação de containers na CI |
+| CRUD com SELECT em Docker | 16 operações aprovadas | Quatro entidades, com valores conferidos após atualizar e exclusão confirmada por SQL |
+| Restauração em Docker | Aprovada | Snapshot restaurado em PostgreSQL novo e aplicação recuperada |
+| Resultados JUnit publicados | 186 testes, 185 aprovados, 1 ignorado, zero falhas | Suíte Maven e três verificações adicionais de preparação |
+| Artefato drop | Publicado | app.jar, SHA256SUMS, commit.txt, scripts, migrações e testes |
+| Release automática | Aprovada | Release-20261119.1, execução 3, disparada pela CI 2 e consumindo seu artefato |
+| API em nuvem | UP e commit conferido | Health e /version no App Service |
+| CRUD e SELECT no Azure | 16 operações aprovadas | Ensaio direto no PostgreSQL do ACI com dados sintéticos e limpeza dos registros de negócio ao final |
+| Banco e broker | Running | postgres e rabbitmq no ACI privado, imagens do ACR da equipe |
+| Snapshots PostgreSQL | Em operação | Registro de snapshots no volume de backup e comando de snapshot executado no ACI |
+| Professor | Basic e Project Administrators configurados | Configurações da organização e do projeto |
 
-## Testes locais
+## Execuções verificadas
+
+- [CI 2](https://dev.azure.com/RM563254/AgroConecta-GS-2026/_build/results?buildId=2)
+- [Testes publicados](https://dev.azure.com/RM563254/AgroConecta-GS-2026/_build/results?buildId=2&view=ms.vss-test-web.build-test-results-tab)
+- [Artefato da CI](https://dev.azure.com/RM563254/AgroConecta-GS-2026/_build/results?buildId=2&view=artifacts&pathAsName=false)
+- [Release 3](https://dev.azure.com/RM563254/AgroConecta-GS-2026/_build/results?buildId=3)
+- [Ensaio SQL no ACI](docs/evidencias/ensaio-azure-19-11-2026.txt)
+
+## Executar a demonstração
+
+Use PowerShell 7.4 ou superior com Azure CLI autenticado na assinatura da equipe:
 
 ```powershell
-./mvnw.cmd '-Dtest=JwtPropertiesTests,AiConfigurationTests,RagAndPromptTests,OutboxUnitTests,ProfileValidationTests,RainfallCalculatorTests,SensorHealthTests,WaterIndicatorsTests,WaterRiskCalculatorTests,JobGuidanceTests,CloudVersionControllerTests' package
+./scripts/gravar-crud-azure.ps1
 ```
 
-Os testes cobrem configuração, contexto RAG, JWT, outbox, orientação, perfis, chuva, saúde de sensores, indicadores hídricos, cálculo de risco e versão da aplicação. Resultados por classe: [testes-locais.json](docs/testes-locais.json).
+O script executa as quatro operações nas quatro entidades e apresenta os SELECTs diretamente no PostgreSQL em nuvem, com pausas para explicação. Não imprime senha nem JWT. Usa dados sintéticos exclusivos e remove os registros de negócio criados ao terminar; o usuário de teste permanece sem fazendas vinculadas.
 
-## Verificação completa
+## Persistência
 
-```powershell
-./scripts/validar-containers.ps1
-```
+Os snapshots lógicos são periódicos, em Azure Files. Alterações posteriores ao último snapshot podem ser perdidas. O teste de recuperação aprovado recria o banco descartável em Docker; não foi feita recriação destrutiva do banco Azure para esta conferência. A existência de snapshots não representa alta disponibilidade nem perda zero.
 
-Requer JDK 21, PowerShell 7.4+ e Docker Linux. Executa Maven completo, aplicação com perfil prod, migrações, CRUD com SELECT e recuperação de snapshot em banco novo. Relatórios: `target/surefire-reports` e `target/cloud-reports`.
+## Registro anterior
 
-A CI executa essa sequência antes de publicar o artefato. A montagem de Azure Files, a conectividade privada, as permissões e o funcionamento dos serviços devem ser conferidos no ensaio de implantação. A verificação estática está registrada em [verificacao-arquivos.json](docs/verificacao-arquivos.json).
+Os arquivos testes-locais.json e verificacao-arquivos.json, em docs, registram a etapa anterior à implantação. A contagem de 46 testes independentes de Docker pertence àquela verificação local. Os resultados de CI e Azure acima correspondem à implantação real de 19/11/2026.

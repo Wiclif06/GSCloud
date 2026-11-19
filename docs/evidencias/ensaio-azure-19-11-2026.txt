@@ -1,0 +1,488 @@
+AgroConecta | Ensaio em PostgreSQL no Azure ACI | 19/11/2026
+
+
+### CREATE farms - 201
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:09:41.760878+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |         name          |   city   | state | total_area | area_unit 
+----+-----------------------+----------+-------+------------+-----------
+  4 | Fazenda GS 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=0;
+ id | farm_id | name | crop_type | area_size | area_unit 
+----+---------+------+-----------+-----------+-----------
+(0 rows)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=0;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### READ farms - 200
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:09:46.604909+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |         name          |   city   | state | total_area | area_unit 
+----+-----------------------+----------+-------+------------+-----------
+  4 | Fazenda GS 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=0;
+ id | farm_id | name | crop_type | area_size | area_unit 
+----+---------+------+-----------+-----------+-----------
+(0 rows)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=0;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### UPDATE farms - 200
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:09:51.054235+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=0;
+ id | farm_id | name | crop_type | area_size | area_unit 
+----+---------+------+-----------+-----------+-----------
+(0 rows)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=0;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### CREATE crop_areas - 201
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:09:55.537893+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |         name         | crop_type | area_size | area_unit 
+----+---------+----------------------+-----------+-----------+-----------
+  3 |       4 | Talhão GS 91fd8d5ff0 | Milho     |     10.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=0;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### READ crop_areas - 200
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:00.134854+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |         name         | crop_type | area_size | area_unit 
+----+---------+----------------------+-----------+-----------+-----------
+  3 |       4 | Talhão GS 91fd8d5ff0 | Milho     |     10.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=0;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### UPDATE crop_areas - 200
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:04.731869+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=0;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### CREATE sensors - 201
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:09.311956+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id |         name         |  device_code  |  sensor_type  | status 
+----+--------------+----------------------+---------------+---------------+--------
+  3 |            3 | Sensor GS 91fd8d5ff0 | GS-91FD8D5FF0 | SOIL_MOISTURE | ACTIVE
+(1 row)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### READ sensors - 200
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:13.617654+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id |         name         |  device_code  |  sensor_type  | status 
+----+--------------+----------------------+---------------+---------------+--------
+  3 |            3 | Sensor GS 91fd8d5ff0 | GS-91FD8D5FF0 | SOIL_MOISTURE | ACTIVE
+(1 row)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### UPDATE sensors - 200
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:18.535439+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id |             name             |  device_code  |  sensor_type  |  status  
+----+--------------+------------------------------+---------------+---------------+----------
+  3 |            3 | Sensor Atualizado 91fd8d5ff0 | GS-91FD8D5FF0 | SOIL_MOISTURE | INACTIVE
+(1 row)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=0;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### CREATE field_activities - 201
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:23.166933+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id |             name             |  device_code  |  sensor_type  |  status  
+----+--------------+------------------------------+---------------+---------------+----------
+  3 |            3 | Sensor Atualizado 91fd8d5ff0 | GS-91FD8D5FF0 | SOIL_MOISTURE | INACTIVE
+(1 row)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=3;
+ id | crop_area_id |    type    |       description       | quantity |  unit  
+----+--------------+------------+-------------------------+----------+--------
+  3 |            3 | IRRIGATION | Irrigação GS 91fd8d5ff0 |   20.000 | litros
+(1 row)
+
+
+### READ field_activities - 200
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:27.456951+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id |             name             |  device_code  |  sensor_type  |  status  
+----+--------------+------------------------------+---------------+---------------+----------
+  3 |            3 | Sensor Atualizado 91fd8d5ff0 | GS-91FD8D5FF0 | SOIL_MOISTURE | INACTIVE
+(1 row)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=3;
+ id | crop_area_id |    type    |       description       | quantity |  unit  
+----+--------------+------------+-------------------------+----------+--------
+  3 |            3 | IRRIGATION | Irrigação GS 91fd8d5ff0 |   20.000 | litros
+(1 row)
+
+
+### UPDATE field_activities - 200
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:31.873538+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id |             name             |  device_code  |  sensor_type  |  status  
+----+--------------+------------------------------+---------------+---------------+----------
+  3 |            3 | Sensor Atualizado 91fd8d5ff0 | GS-91FD8D5FF0 | SOIL_MOISTURE | INACTIVE
+(1 row)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=3;
+ id | crop_area_id |    type    |          description          | quantity |  unit  
+----+--------------+------------+-------------------------------+----------+--------
+  3 |            3 | IRRIGATION | Irrigação revisada 91fd8d5ff0 |   25.000 | litros
+(1 row)
+
+
+### DELETE field_activities - 204; SELECT deve ficar vazio
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:36.888979+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id |             name             |  device_code  |  sensor_type  |  status  
+----+--------------+------------------------------+---------------+---------------+----------
+  3 |            3 | Sensor Atualizado 91fd8d5ff0 | GS-91FD8D5FF0 | SOIL_MOISTURE | INACTIVE
+(1 row)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=3;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### DELETE sensors - 204; SELECT deve ficar vazio
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:42.073732+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id |             name             | crop_type | area_size | area_unit 
+----+---------+------------------------------+-----------+-----------+-----------
+  3 |       4 | Talhão Atualizado 91fd8d5ff0 | Milho     |     12.00 | HECTARE
+(1 row)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=3;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### DELETE crop_areas - 204; SELECT deve ficar vazio
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:47.160621+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id |             name              |   city   | state | total_area | area_unit 
+----+-------------------------------+----------+-------+------------+-----------
+  4 | Fazenda Atualizada 91fd8d5ff0 | Campinas | SP    |     100.00 | HECTARE
+(1 row)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id | name | crop_type | area_size | area_unit 
+----+---------+------+-----------+-----------+-----------
+(0 rows)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=3;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+### DELETE farms - 204; SELECT deve ficar vazio
+SELECT current_database() AS banco, inet_server_addr() AS servidor, now() AS instante;
+    banco    | servidor  |           instante            
+-------------+-----------+-------------------------------
+ citizentech | 127.0.0.1 | 2026-11-19 14:10:53.163593+00
+(1 row)
+
+SELECT id,name,city,state,total_area,area_unit FROM farms WHERE id=4;
+ id | name | city | state | total_area | area_unit 
+----+------+------+-------+------------+-----------
+(0 rows)
+
+SELECT id,farm_id,name,crop_type,area_size,area_unit FROM crop_areas WHERE id=3;
+ id | farm_id | name | crop_type | area_size | area_unit 
+----+---------+------+-----------+-----------+-----------
+(0 rows)
+
+SELECT id,crop_area_id,name,device_code,sensor_type,status FROM sensors WHERE id=3;
+ id | crop_area_id | name | device_code | sensor_type | status 
+----+--------------+------+-------------+-------------+--------
+(0 rows)
+
+SELECT id,crop_area_id,type,description,quantity,unit FROM field_activities WHERE id=3;
+ id | crop_area_id | type | description | quantity | unit 
+----+--------------+------+-------------+----------+------
+(0 rows)
+
+
+RESULTADO: 16 operações CRUD/SELECT aprovadas no PostgreSQL do ACI.
