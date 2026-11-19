@@ -33,7 +33,7 @@ foreach ($policy in @($current | Where-Object {$_.type.id -in @('fd2167ab-b0be-4
         az repos policy update --id $policy.id --config $temp --org $Organization --project $Project --output none
     } finally { Remove-Item -LiteralPath $temp -ErrorAction SilentlyContinue }
 }
-az repos update --id $RepositoryId --default-branch refs/heads/main --org $Organization --project $Project --output none
+az repos update --repository $RepositoryId --default-branch refs/heads/main --org $Organization --project $Project --output none
 $verified=@(az repos policy list --org $Organization --project $Project --repository-id $RepositoryId --branch main -o json | ConvertFrom-Json)
 foreach ($id in @('fa4e907d-c16b-4a4c-9dfa-4906e5d171dd','40e92b44-2fe1-4dd6-b3d8-74a9c21d0c6e','fd2167ab-b0be-447a-8ec8-39368250530e')) {
     if (-not @($verified | Where-Object {$_.type.id -eq $id -and $_.isEnabled -and $_.isBlocking}).Count) { throw 'Uma das três políticas obrigatórias não foi confirmada.' }
