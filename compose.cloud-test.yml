@@ -1,0 +1,59 @@
+# Ambiente descartável de validação. Não é o provisionamento Azure.
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: dockerfiles/postgres.Dockerfile
+    environment:
+      POSTGRES_DB: citizentech
+      POSTGRES_USER: agroconecta
+      POSTGRES_PASSWORD: ${AGRO_TEST_DB_PASSWORD:?Execute scripts/validar-containers.ps1}
+      PGPASSWORD: ${AGRO_TEST_DB_PASSWORD:?Execute scripts/validar-containers.ps1}
+      BACKUP_INTERVAL_SECONDS: '60'
+    volumes:
+      - pg-backups:/backup
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h 127.0.0.1 -U agroconecta -d citizentech']
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  rabbitmq:
+    build:
+      context: .
+      dockerfile: dockerfiles/rabbitmq.Dockerfile
+    environment:
+      RABBITMQ_DEFAULT_USER: agroconecta
+      RABBITMQ_DEFAULT_PASS: ${AGRO_TEST_RABBIT_PASSWORD:?Execute scripts/validar-containers.ps1}
+    healthcheck:
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
+      interval: 5s
+      timeout: 10s
+      retries: 40
+  api:
+    build:
+      context: ./target
+      dockerfile: ../dockerfiles/api.Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DOCKER_COMPOSE_ENABLED: 'false'
+      SERVER_PORT: '8080'
+      DB_URL: jdbc:postgresql://postgres:5432/citizentech
+      DB_USERNAME: agroconecta
+      DB_PASSWORD: ${AGRO_TEST_DB_PASSWORD:?Execute scripts/validar-containers.ps1}
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USERNAME: agroconecta
+      RABBITMQ_PASSWORD: ${AGRO_TEST_RABBIT_PASSWORD:?Execute scripts/validar-containers.ps1}
+      JWT_SECRET: ${AGRO_TEST_JWT_SECRET:?Execute scripts/validar-containers.ps1}
+      APP_AI_ENABLED: 'false'
+      READINGS_MESSAGING_ENABLED: 'true'
+      OUTBOX_ENABLED: 'true'
+    ports:
+      - '127.0.0.1::8080'
+    mem_limit: 1536m
+volumes:
+  pg-backups:

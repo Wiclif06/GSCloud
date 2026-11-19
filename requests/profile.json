@@ -1,0 +1,9 @@
+{
+  "soilTexture": "Argiloso",
+  "fieldCapacityPercent": 32,
+  "wiltingPointPercent": 12,
+  "rootDepthCentimeters": 40,
+  "sensorDepthCentimeters": 20,
+  "source": "Parâmetros demonstrativos, sem validação de campo.",
+  "demo": true
+}

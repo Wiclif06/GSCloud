@@ -1,0 +1,67 @@
+name: Release-$(Date:yyyyMMdd).$(Rev:r)
+trigger: none
+pr: none
+resources:
+  pipelines:
+    - pipeline: ci
+      source: AgroConecta-CI
+      trigger:
+        branches:
+          include: [refs/heads/main]
+pool:
+  vmImage: ubuntu-latest
+variables:
+  - group: agroconecta-prod
+stages:
+  - stage: Deploy
+    displayName: Implantar no App Service a versão validada pela CI
+    jobs:
+      - deployment: Azure
+        environment: agroconecta-prod
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: none
+                - download: ci
+                  artifact: drop
+                  displayName: Baixar o artefato da execução CI de origem
+                - bash: |
+                    set -euo pipefail
+                    cd "$(Pipeline.Workspace)/ci/drop"
+                    sha256sum -c SHA256SUMS
+                  displayName: Conferir checksum do JAR
+                - task: AzureWebApp@1
+                  displayName: Publicar JAR; Flyway aplica migrações ao iniciar
+                  inputs:
+                    azureSubscription: sc-agroconecta-azure
+                    appType: webAppLinux
+                    appName: $(WEBAPP_NAME)
+                    package: '$(Pipeline.Workspace)/ci/drop/app.jar'
+                    runtimeStack: 'JAVA|21-java21'
+                - task: AzureCLI@2
+                  displayName: Verificar health, commit do JAR e CRUD em nuvem
+                  inputs:
+                    azureSubscription: sc-agroconecta-azure
+                    scriptType: pscore
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                      $ErrorActionPreference='Stop'
+                      $hostName=az webapp show -g $env:RESOURCE_GROUP -n $env:WEBAPP_NAME --query defaultHostName -o tsv
+                      if ($LASTEXITCODE -ne 0 -or -not $hostName) { throw 'Não foi possível obter a URL real do App Service.' }
+                      $url="https://$hostName"
+                      $expected=(Get-Content "$(Pipeline.Workspace)/ci/drop/commit.txt").Trim()
+                      $ready=$false
+                      for ($i=0; $i -lt 36; $i++) {
+                        try {
+                          $health=Invoke-RestMethod "$url/actuator/health" -TimeoutSec 20
+                          $version=Invoke-RestMethod "$url/version" -TimeoutSec 20
+                          if ($health.status -eq 'UP' -and $version.commit -eq $expected) { $ready=$true; break }
+                        } catch { }
+                        Start-Sleep -Seconds 10
+                      }
+                      if (-not $ready) { throw 'Health/commit não confirmados. Confira Flyway, banco, broker e logs do App Service.' }
+                      & "$(Pipeline.Workspace)/ci/drop/scripts/smoke-test.ps1" -BaseUrl $url
+                  env:
+                    RESOURCE_GROUP: $(RESOURCE_GROUP)
+                    WEBAPP_NAME: $(WEBAPP_NAME)

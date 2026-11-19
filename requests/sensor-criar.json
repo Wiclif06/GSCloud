@@ -1,0 +1,8 @@
+{
+  "cropAreaId": 1,
+  "name": "Umidade do solo",
+  "deviceCode": "GS-SENSOR-001",
+  "sensorType": "SOIL_MOISTURE",
+  "installationDate": "2026-11-01",
+  "description": "Sensor demonstrativo."
+}

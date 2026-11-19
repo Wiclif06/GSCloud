@@ -1,0 +1,24 @@
+{
+  "data": "2026-11-17",
+  "tipo": "verificação estática local dos arquivos",
+  "checks": {
+    "ci_acionada_main": true,
+    "release_automatica_por_ci": true,
+    "teste_prod_antes_artefato": true,
+    "arquivo_scripts/validar-containers.ps1": true,
+    "compose_porta_local": true,
+    "compose_perfil_prod": true,
+    "restauracao_volume_separado": true,
+    "dezenove_migracoes_preservadas": true,
+    "sem_senha_padrao_runtime": true,
+    "arquivos_exigidos_e_roteiro": true,
+    "sem_arquivo_local_.env": true,
+    "sem_arquivo_local_infra-output.json": true,
+    "sem_arquivo_local_devops-output.json": true,
+    "sem_arquivo_local_config/implantacao.local.json": true,
+    "quatro_rms_no_pdf": true,
+    "campos_links_reais": true
+  },
+  "docker": "não disponível neste computador; execução completa pendente",
+  "azure": "não acessado; implantação e evidências serão conferidas na próxima etapa"
+}

@@ -1,0 +1,10 @@
+{
+  "farmId": 1,
+  "name": "Talhão de milho",
+  "cropType": "Milho",
+  "areaSize": 10,
+  "areaUnit": "HECTARE",
+  "latitude": -22.9,
+  "longitude": -47.06,
+  "description": "Área demonstrativa."
+}

@@ -1,0 +1,7 @@
+{
+  "type": "IRRIGATION",
+  "performedAt": "2026-11-01T12:00:00Z",
+  "description": "Irrigação revisada.",
+  "quantity": 25,
+  "unit": "litros"
+}

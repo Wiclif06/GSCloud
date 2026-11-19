@@ -1,0 +1,84 @@
+{
+  "ambiente": "Local - JDK 21, sem Docker",
+  "selecao": "Testes independentes de Testcontainers",
+  "total": 46,
+  "suites": [
+    {
+      "name": "br.com.fiap.citizentech.analysis.config.AiConfigurationTests",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.analysis.RagAndPromptTests",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.auth.JwtPropertiesTests",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.cloud.CloudVersionControllerTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.sensorreading.OutboxUnitTests",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.water.JobGuidanceTests",
+      "tests": "13",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.water.ProfileValidationTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.water.RainfallCalculatorTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.water.SensorHealthTests",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.water.WaterIndicatorsTests",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "br.com.fiap.citizentech.water.WaterRiskCalculatorTests",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+name: CI-$(Date:yyyyMMdd).$(Rev:r)
+trigger:
+  batch: true
+  branches:
+    include: [main]
+pr: none
+pool:
+  vmImage: ubuntu-latest
+steps:
+  - checkout: self
+    clean: true
+  - task: JavaToolInstaller@0
+    displayName: Selecionar JDK 21
+    inputs:
+      versionSpec: '21'
+      jdkArchitectureOption: x64
+      jdkSourceOption: PreInstalled
+  - bash: |
+      set -euo pipefail
+      docker info >/dev/null
+      chmod +x mvnw
+      printf 'build.commit=%s\n' '$(Build.SourceVersion)' > src/main/resources/build-info.properties
+      ./mvnw -B -ntp clean verify
+    displayName: Compilar e executar a suíte completa com Testcontainers
+    env:
+      RUN_GEMINI_MANUAL_TEST: 'false'
+      APP_AI_ENABLED: 'false'
+      SPRING_DOCKER_COMPOSE_ENABLED: 'false'
+  - task: PowerShell@2
+    displayName: Validar perfil prod, CRUD com SELECT e restauração do banco
+    inputs:
+      pwsh: true
+      targetType: filePath
+      filePath: scripts/validar-containers.ps1
+      arguments: '-SkipMaven'
+  - task: PublishTestResults@2
+    displayName: Publicar resultados JUnit
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: JUnit
+      testResultsFiles: |
+        **/surefire-reports/TEST-*.xml
+        **/cloud-reports/TEST-*.xml
+      failTaskOnFailedTests: true
+      failTaskOnMissingResultsFile: true
+      testRunTitle: AgroConecta - suíte Java e integração PostgreSQL/RabbitMQ
+  - bash: |
+      set -euo pipefail
+      drop="$(Build.ArtifactStagingDirectory)/drop"
+      mkdir -p "$drop/scripts" "$drop/tests" "$drop/migrations"
+      cp target/citizentech-api-0.0.1-SNAPSHOT.jar "$drop/app.jar"
+      cp target/surefire-reports/TEST-*.xml "$drop/tests/"
+      cp target/cloud-reports/TEST-*.xml "$drop/tests/"
+      cp scripts/smoke-test.ps1 scripts/script-bd.sql scripts/consultar-banco.ps1 "$drop/scripts/"
+      cp src/main/resources/db/migration/*.sql "$drop/migrations/"
+      printf '%s\n' '$(Build.SourceVersion)' > "$drop/commit.txt"
+      cd "$drop"
+      sha256sum app.jar > SHA256SUMS
+    displayName: Preparar JAR, DDL, migrações e testes no artefato drop
+  - task: PublishPipelineArtifact@1
+    displayName: Publicar pacote de Release
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/drop'
+      artifact: drop
+      publishLocation: pipeline
