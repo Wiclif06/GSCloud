@@ -16,7 +16,7 @@ public class CloudVersionController {
     @GetMapping("/version")
     public Map<String, String> version() {
         return Map.of("application", "AgroConecta",
-                "message", "AgroConecta: tecnologia a serviço do pequeno produtor.",
+                "message", "mensagem de acompanhamento do produtor AB#648",
                 "commit", commit);
     }
 }
