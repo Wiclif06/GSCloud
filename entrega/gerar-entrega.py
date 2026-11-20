@@ -17,22 +17,20 @@ TEAM = [
     ('Lucas Gonçalves Viana', '563254'),
     ('Vinicius Paschoeto da Silva', '563089'),
 ]
-NAVY = colors.HexColor('#163047')
-GREEN = colors.HexColor('#087f68')
-GRAY = colors.HexColor('#526779')
+NAVY = colors.black
+GRAY = colors.HexColor('#555555')
 W, H = A4
 
 def paragraph(c, text, x, top, width, size=11, color=NAVY):
-    style = ParagraphStyle('p', fontName='Helvetica', fontSize=size, leading=size*1.4, textColor=color, splitLongWords=True)
+    style = ParagraphStyle('p', fontName='Times-Roman', fontSize=size, leading=size*1.4, textColor=color, splitLongWords=True)
     p = Paragraph(text, style)
     _, height = p.wrap(width, H)
     p.drawOn(c, x, top-height)
     return top-height
 
 def footer(c, page, width=W, baseline=31):
-    c.setStrokeColor(colors.HexColor('#d5e0eb')); c.line(48, baseline+14, width-48, baseline+14)
-    c.setFillColor(GRAY); c.setFont('Helvetica', 8)
-    c.drawString(48, baseline, 'AgroConecta | Global Solution 2026/2 | RM563901')
+    c.setFillColor(GRAY); c.setFont('Times-Roman', 9)
+    c.drawString(60, baseline, 'AgroConecta - Global Solution 2026/2')
     c.drawRightString(width-48,baseline,str(page))
 
 def generate(path, org='', video='', modelo=False, github='https://github.com/Wiclif06/GSCloud', video2=''):
@@ -42,44 +40,39 @@ def generate(path, org='', video='', modelo=False, github='https://github.com/Wi
     c.setAuthor('Felipe Wiclif Leal da Silva; Deryk de Souza Queiroz; Lucas Gonçalves Viana; Vinicius Paschoeto da Silva')
     c.setSubject('DevOps Tools & Cloud Computing - CitizenTech')
     c.setCreator('AgroConecta - Documentação técnica')
-    c.setFillColor(NAVY); c.rect(0,H-190,W,190,fill=1,stroke=0)
-    c.setFillColor(colors.HexColor('#6de0bc')); c.setFont('Helvetica-Bold',10)
-    c.drawString(48,H-53,'FIAP | GLOBAL SOLUTION 2026/2')
-    c.setFillColor(colors.white); c.setFont('Helvetica-Bold',34); c.drawString(48,H-108,'AgroConecta')
-    c.setFont('Helvetica',14); c.drawString(48,H-139,'DevOps Tools & Cloud Computing')
-    c.setFont('Helvetica',11); c.drawString(48,H-164,'CitizenTech - Apoio inteligente ao pequeno produtor')
-    y=H-228
-    paragraph(c,'<b>Grupo AgroConecta</b>',48,y,W-96,17)
-    y-=38
-    paragraph(c,'Representante: Felipe Wiclif Leal da Silva | RM563901',48,y,W-96,11)
-    y-=50
-    for i,(name,rm) in enumerate(TEAM):
-        c.setFillColor(colors.HexColor('#f0f5f8') if i%2==0 else colors.white)
-        c.roundRect(48,y-32,W-96,36,5,fill=1,stroke=0)
-        c.setFillColor(NAVY); c.setFont('Helvetica',11); c.drawString(60,y-18,name)
-        c.setFont('Helvetica-Bold',10); c.drawRightString(W-60,y-18,'RM'+rm)
-        y-=40
+    c.setFillColor(colors.black)
+    c.setFont('Times-Bold',14); c.drawCentredString(W/2,H-68,'FIAP - GLOBAL SOLUTION 2026/2')
+    c.setFont('Times-Roman',12); c.drawCentredString(W/2,H-93,'DevOps Tools & Cloud Computing')
+    c.setFont('Times-Bold',20); c.drawCentredString(W/2,H-151,'AgroConecta')
+    y=H-200
+    paragraph(c,'<b>Integrantes</b>',60,y,W-120,12)
     y-=34
+    for name,rm in TEAM:
+        c.setFont('Times-Roman',12); c.drawString(60,y,name)
+        c.drawRightString(W-60,y,'RM '+rm)
+        y-=25
+    y-=13
+    y=paragraph(c,'Representante: Felipe Wiclif Leal da Silva (RM 563901)',60,y,W-120,12)-35
     platform = lambda value: 'Google Drive' if urlparse(value).hostname == 'drive.google.com' else 'YouTube'
     links = [('Organização no Azure DevOps','azure_devops',org),('Repositório GitHub','github',github),('Vídeo 1 - '+platform(video),'video',video)]
     if video2:
         links.append(('Vídeo 2 - '+platform(video2),'video2',video2))
     for label,name,value in links:
-        paragraph(c,'<b>'+label+'</b>',48,y,W-96,11)
-        y-=29
+        paragraph(c,'<b>'+label+'</b>',60,y,W-120,12)
+        y-=25
         if modelo:
             c.acroForm.textfield(name=name, tooltip=label+' - informe o link real e salve o PDF',
-                x=48,y=y-18,width=W-96,height=26,fontName='Helvetica',fontSize=9,
+                x=60,y=y-18,width=W-120,height=26,fontName='Times-Roman',fontSize=10,
                 textColor=NAVY,borderColor=colors.HexColor('#9aafbc'),fillColor=colors.white,
                 borderWidth=1,forceBorder=True,fieldFlags='required',value='')
             y-=53
         else:
-            y=paragraph(c,'<link href="'+escape(value,{'"':'&quot;'})+'" color="#087f68">'+escape(value)+'</link>',48,y+4,W-96,10)-34
+            y=paragraph(c,'<link href="'+escape(value,{'"':'&quot;'})+'" color="#000080"><u>'+escape(value)+'</u></link>',60,y+4,W-120,11)-25
     footer(c,1); c.showPage()
     page_width,page_height=landscape(A4)
     c.setPageSize((page_width,page_height))
-    c.setFillColor(NAVY);c.setFont('Helvetica-Bold',16)
-    c.drawString(48,page_height-29,'AgroConecta | Arquitetura de implantação')
+    c.setFillColor(colors.black);c.setFont('Times-Bold',14)
+    c.drawString(48,page_height-29,'Arquitetura da solução - AgroConecta')
     image=ROOT/'docs/arquitetura-cloud.png'
     if image.exists():
         width=680; height=width*1220/1600
