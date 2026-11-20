@@ -24,7 +24,7 @@ DevOps Tools & Cloud Computing
 
 [Verificação do ambiente](VALIDACAO.md)
 
-[Evidências da publicação da Task 648](docs/evidencias/PR6.md) · [Vídeo de demonstração](https://drive.google.com/file/d/1rYF8QrBoP4zz8mvWbLlZNkwOMcHOt96-/view?usp=sharing)
+[Evidências da publicação da Task 648](docs/evidencias/PR6.md) · [Vídeo 1 - YouTube](https://youtu.be/AKYmF_mgBQ8) · [Vídeo 2 - Google Drive](https://drive.google.com/file/d/1rYF8QrBoP4zz8mvWbLlZNkwOMcHOt96-/view?usp=sharing)
 
 ## Visão geral
 

@@ -35,7 +35,7 @@ def footer(c, page, width=W, baseline=31):
     c.drawString(48, baseline, 'AgroConecta | Global Solution 2026/2 | RM563901')
     c.drawRightString(width-48,baseline,str(page))
 
-def generate(path, org='', video='', modelo=False, github='https://github.com/Wiclif06/GSCloud'):
+def generate(path, org='', video='', modelo=False, github='https://github.com/Wiclif06/GSCloud', video2=''):
     path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
     c = canvas.Canvas(str(path), pagesize=A4)
     c.setTitle('AgroConecta - Global Solution 2026/2 - RM563901')
@@ -60,8 +60,11 @@ def generate(path, org='', video='', modelo=False, github='https://github.com/Wi
         c.setFont('Helvetica-Bold',10); c.drawRightString(W-60,y-18,'RM'+rm)
         y-=40
     y-=34
-    video_label = 'Vídeo de demonstração no Google Drive' if urlparse(video).hostname == 'drive.google.com' else 'Vídeo de demonstração no YouTube'
-    for label,name,value in [('Organização no Azure DevOps','azure_devops',org),('Repositório GitHub','github',github),(video_label,'video',video)]:
+    platform = lambda value: 'Google Drive' if urlparse(value).hostname == 'drive.google.com' else 'YouTube'
+    links = [('Organização no Azure DevOps','azure_devops',org),('Repositório GitHub','github',github),('Vídeo 1 - '+platform(video),'video',video)]
+    if video2:
+        links.append(('Vídeo 2 - '+platform(video2),'video2',video2))
+    for label,name,value in links:
         paragraph(c,'<b>'+label+'</b>',48,y,W-96,11)
         y-=29
         if modelo:
@@ -100,17 +103,20 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--org',help='URL real da organização Azure DevOps')
     parser.add_argument('--video',help='URL real do vídeo publicado no YouTube ou Google Drive')
+    parser.add_argument('--video2',default='',help='URL opcional do segundo vídeo')
     parser.add_argument('--github',default='https://github.com/Wiclif06/GSCloud',help='URL do repositório GitHub')
     parser.add_argument('--modelo',action='store_true',help='Gerar apenas modelo preenchível sem links')
     parser.add_argument('--saida',type=Path)
     args=parser.parse_args()
     if not args.modelo:
         if not args.org or not args.video: parser.error('--org e --video são obrigatórios na entrega final.')
-        try: validate(args.org,args.video)
+        try:
+            validate(args.org,args.video)
+            if args.video2: validate(args.org,args.video2)
         except ValueError as e: parser.error(str(e))
     target=args.saida or ROOT/'entrega'/'AgroConecta_rm563901.pdf'
     g=urlparse(args.github)
     if g.scheme!='https' or g.hostname!='github.com' or not re.fullmatch(r'/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/?',g.path):
         parser.error('--github deve ser a URL HTTPS de um repositório GitHub.')
-    generate(target,args.org or '',args.video or '',args.modelo,args.github)
+    generate(target,args.org or '',args.video or '',args.modelo,args.github,args.video2)
     print(target.resolve())

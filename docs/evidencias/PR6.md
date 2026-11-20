@@ -31,7 +31,9 @@ As imagens abaixo foram extraídas do arquivo de demonstração compartilhado pe
 - 24:40: [Resposta de versão e commit](pr6-version.jpg)
 - 25:15: [Health UP](pr6-health.jpg)
 
-[Gravação compartilhada](https://drive.google.com/file/d/1rYF8QrBoP4zz8mvWbLlZNkwOMcHOt96-/view?usp=sharing)
+[Vídeo 1 - YouTube](https://youtu.be/AKYmF_mgBQ8) · [Vídeo 2 - Google Drive](https://drive.google.com/file/d/1rYF8QrBoP4zz8mvWbLlZNkwOMcHOt96-/view?usp=sharing)
+
+As imagens e os tempos desta página correspondem ao arquivo do Vídeo 2 no Google Drive.
 
 ## Evidência SQL anterior
 
