@@ -30,7 +30,6 @@ def paragraph(c, text, x, top, width, size=11, color=NAVY):
 
 def footer(c, page, width=W, baseline=31):
     c.setFillColor(GRAY); c.setFont('Times-Roman', 9)
-    c.drawString(60, baseline, 'AgroConecta - Global Solution 2026/2')
     c.drawRightString(width-48,baseline,str(page))
 
 def generate(path, org='', video='', modelo=False, github='https://github.com/Wiclif06/GSCloud', video2=''):
@@ -52,7 +51,7 @@ def generate(path, org='', video='', modelo=False, github='https://github.com/Wi
         c.drawRightString(W-60,y,'RM '+rm)
         y-=25
     y-=13
-    y=paragraph(c,'Representante: Felipe Wiclif Leal da Silva (RM 563901)',60,y,W-120,12)-35
+    y-=52
     platform = lambda value: 'Google Drive' if urlparse(value).hostname == 'drive.google.com' else 'YouTube'
     links = [('Organização no Azure DevOps','azure_devops',org),('Repositório GitHub','github',github),('Vídeo 1 - '+platform(video),'video',video)]
     if video2:
