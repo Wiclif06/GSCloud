@@ -35,7 +35,7 @@ def footer(c, page, width=W, baseline=31):
     c.drawString(48, baseline, 'AgroConecta | Global Solution 2026/2 | RM563901')
     c.drawRightString(width-48,baseline,str(page))
 
-def generate(path, org='', video='', modelo=False):
+def generate(path, org='', video='', modelo=False, github='https://github.com/Wiclif06/GSCloud'):
     path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
     c = canvas.Canvas(str(path), pagesize=A4)
     c.setTitle('AgroConecta - Global Solution 2026/2 - RM563901')
@@ -60,7 +60,8 @@ def generate(path, org='', video='', modelo=False):
         c.setFont('Helvetica-Bold',10); c.drawRightString(W-60,y-18,'RM'+rm)
         y-=40
     y-=34
-    for label,name,value in [('Organização no Azure DevOps','azure_devops',org),('Vídeo de demonstração no YouTube','youtube',video)]:
+    video_label = 'Vídeo de demonstração no Google Drive' if urlparse(video).hostname == 'drive.google.com' else 'Vídeo de demonstração no YouTube'
+    for label,name,value in [('Organização no Azure DevOps','azure_devops',org),('Repositório GitHub','github',github),(video_label,'video',video)]:
         paragraph(c,'<b>'+label+'</b>',48,y,W-96,11)
         y-=29
         if modelo:
@@ -88,15 +89,18 @@ def validate(org,video):
     valid_org = a.scheme=='https' and ((a.hostname=='dev.azure.com' and re.fullmatch(r'/[A-Za-z0-9_-]+/?',a.path)) or (a.hostname or '').endswith('.visualstudio.com'))
     if not valid_org: raise ValueError('Informe a URL real da organização Azure DevOps com HTTPS.')
     ident = b.path.strip('/') if b.hostname=='youtu.be' else parse_qs(b.query).get('v',[''])[0]
-    if b.scheme!='https' or b.hostname not in {'youtube.com','www.youtube.com','youtu.be'} or not re.fullmatch(r'[A-Za-z0-9_-]{11}',ident):
-        raise ValueError('Informe o link real do vídeo: https://www.youtube.com/watch?v=ID ou https://youtu.be/ID.')
+    youtube = b.hostname in {'youtube.com','www.youtube.com','youtu.be'} and re.fullmatch(r'[A-Za-z0-9_-]{11}',ident)
+    drive = b.hostname == 'drive.google.com' and re.fullmatch(r'/file/d/[A-Za-z0-9_-]+/view',b.path)
+    if b.scheme!='https' or not (youtube or drive):
+        raise ValueError('Informe um link real do vídeo no YouTube ou Google Drive.')
     if any(s in (org+' '+video).lower() for s in ['sua_organizacao','exemplo','placeholder','url_real']):
         raise ValueError('Links de exemplo não podem ser usados na entrega.')
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--org',help='URL real da organização Azure DevOps')
-    parser.add_argument('--video',help='URL real do vídeo publicado no YouTube')
+    parser.add_argument('--video',help='URL real do vídeo publicado no YouTube ou Google Drive')
+    parser.add_argument('--github',default='https://github.com/Wiclif06/GSCloud',help='URL do repositório GitHub')
     parser.add_argument('--modelo',action='store_true',help='Gerar apenas modelo preenchível sem links')
     parser.add_argument('--saida',type=Path)
     args=parser.parse_args()
@@ -105,5 +109,8 @@ if __name__=='__main__':
         try: validate(args.org,args.video)
         except ValueError as e: parser.error(str(e))
     target=args.saida or ROOT/'entrega'/'AgroConecta_rm563901.pdf'
-    generate(target,args.org or '',args.video or '',args.modelo)
+    g=urlparse(args.github)
+    if g.scheme!='https' or g.hostname!='github.com' or not re.fullmatch(r'/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/?',g.path):
+        parser.error('--github deve ser a URL HTTPS de um repositório GitHub.')
+    generate(target,args.org or '',args.video or '',args.modelo,args.github)
     print(target.resolve())

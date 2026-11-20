@@ -24,6 +24,8 @@ DevOps Tools & Cloud Computing
 
 [Verificação do ambiente](VALIDACAO.md)
 
+[Evidências da publicação da Task 648](docs/evidencias/PR6.md) · [Vídeo de demonstração](https://drive.google.com/file/d/1rYF8QrBoP4zz8mvWbLlZNkwOMcHOt96-/view?usp=sharing)
+
 ## Visão geral
 
 O AgroConecta reúne informações de propriedades rurais, áreas de cultivo, sensores e atividades agrícolas. O sistema oferece acompanhamento hídrico, processamento assíncrono, alertas e orientação agronômica com Gemini e recuperação de fontes por PGvector.

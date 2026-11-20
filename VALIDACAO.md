@@ -1,5 +1,15 @@
 # Verificação do ambiente Cloud
 
+## Publicação da Task 648
+
+A versão demonstrada na gravação utiliza o commit 7092f0e7bf2f9d12bbebbac405618b07dd5c2fe2, integrado pela PR 6. A CI-20261120.1 (execução 10) e a Release-20261120.1 (execução 11) aparecem concluídas com sucesso. A Release é acionada pela CI correspondente.
+
+Consulte as [evidências e links da publicação](docs/evidencias/PR6.md). O código desse commit está sincronizado no GitHub. A documentação e o PDF podem ter commits posteriores sem alterar o JAR publicado.
+
+## Histórico de verificação anterior
+
+Os resultados numéricos abaixo pertencem ao ensaio anterior, no commit indicado. Não representam uma nova medição da execução 10 nem comprovam por si só o CRUD manual no vídeo.
+
 Conferência realizada em 19/11/2026 no projeto AgroConecta-GS-2026. A compilação implantada na conferência corresponde ao commit `9d7418d5536db4a213cb18cbea3e99387ae5ee75`.
 
 | Verificação | Resultado | Evidência |
